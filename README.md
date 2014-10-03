@@ -10,7 +10,7 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -38,6 +38,32 @@ Other ontologies may also be used that aren't listed.
 * [RDF](http://www.w3.org/TR/rdf-syntax-grammar/)
 
 
+### Creating a Person
+
+Start console in a terminal.
+```
+bundle console
+```
+
+In console, you can test creating a person.
+```
+# Create an in-memory repository
+ActiveTriples::Repositories.add_repository :default, RDF::Repository.new
+
+# Configure a base_uri for all person objects
+LD4L::FoafRDF.configure do |config|
+  config.base_uri  = "http://example.org/individual/"
+end
+
+# Create a person
+p = LD4L::FoafRDF::Person.new('1')
+p.rdf_subject
+# => http://example.org/individual/pr1
+
+# View triples as tutle
+puts p.dump :ttl
+# => <http://example.org/individual/p1> a <http://xmlns.com/foaf/0.1/Person> .
+```
 
 ## Contributing
 
