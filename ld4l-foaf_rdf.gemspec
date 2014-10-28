@@ -22,7 +22,9 @@ Gem::Specification.new do |spec|
 
 #  spec.add_dependency('ffi', '~> 1.9.5')
   spec.add_dependency('rdf', '~> 1.1')
-  spec.add_dependency('active-triples', '~> 0.2')
+
+# GETTING FROM GEMFILE UNTIL MintLocalName CODE IS PUSHED INTO MASTER
+#  spec.add_dependency('active-triples', '~> 0.2')
 
   spec.add_development_dependency('rdoc')
   spec.add_development_dependency('rspec')

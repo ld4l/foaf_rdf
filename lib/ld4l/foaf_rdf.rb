@@ -30,7 +30,6 @@ module LD4L
     # autoload classes
     autoload :Configuration,         'ld4l/foaf_rdf/configuration'
     autoload :Person,                'ld4l/foaf_rdf/person'
-    autoload :ResourceExtension,     'ld4l/foaf_rdf/resource_extension'
 
     def self.class_from_string(class_name, container_class=Kernel)
       container_class = container_class.name if container_class.is_a? Module
