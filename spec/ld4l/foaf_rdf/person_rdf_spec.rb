@@ -17,7 +17,7 @@ describe 'LD4L::FoafRDF::Person' do
 
     it "should append to base URI when setting to non-URI subject" do
       subject.set_subject! '123'
-      expect(subject.rdf_subject).to eq RDF::URI("#{LD4L::FoafRDF::Person.base_uri}#{LD4L::FoafRDF::Person.id_prefix}123")
+      expect(subject.rdf_subject).to eq RDF::URI("#{LD4L::FoafRDF::Person.base_uri}123")
     end
 
     describe 'when changing subject' do
@@ -159,7 +159,7 @@ describe 'LD4L::FoafRDF::Person' do
     end
 
     it 'should return the default label as URI when no title property exists' do
-      expect(subject.rdf_label).to eq ["#{LD4L::FoafRDF::Person.base_uri}#{LD4L::FoafRDF::Person.id_prefix}123"]
+      expect(subject.rdf_label).to eq ["#{LD4L::FoafRDF::Person.base_uri}123"]
     end
 
     it 'should prioritize configured label values' do
