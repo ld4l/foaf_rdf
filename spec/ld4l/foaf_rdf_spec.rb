@@ -22,7 +22,6 @@ describe "LD4L::FoafRDF" do
     end
 
     it "should use configured value in Person sub-class" do
-      # FIXME fails if run with all tests because LD4L::FoafRDF::Person is already loaded by other tests with a different base_uri
       p = DummyPerson.new('1')
       expect(p.rdf_subject.to_s).to eq "http://localhost/test/1"
     end

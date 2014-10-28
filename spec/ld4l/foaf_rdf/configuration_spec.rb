@@ -56,7 +56,6 @@ describe 'LD4L::FoafRDF' do
         end
       end
 
-
       it "should return value of configured base_uri" do
         LD4L::FoafRDF.configure do |config|
           config.base_uri = "http://localhost/test_config/"
@@ -84,6 +83,7 @@ describe 'LD4L::FoafRDF' do
     end
   end
 
+
   describe "LD4L::FoafRDF::Configuration" do
     describe "#base_uri" do
       it "should default to localhost" do
@@ -105,5 +105,4 @@ describe 'LD4L::FoafRDF' do
       end
     end
   end
-
 end
