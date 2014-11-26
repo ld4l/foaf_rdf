@@ -4,7 +4,8 @@ module LD4L
   module FoafRDF
     class Person < ActiveTriples::Resource
 
-      @local_name_prefix="p"
+      class << self; attr_reader :localname_prefix end
+      @localname_prefix="p"
 
       configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
     end

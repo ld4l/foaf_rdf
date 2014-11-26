@@ -1,7 +1,9 @@
 require 'rdf'
 require 'active_triples'
+require 'active_triples/local_name'
 require	'linkeddata'
 require 'ld4l/foaf_rdf/version'
+
 
 module LD4L
   module FoafRDF

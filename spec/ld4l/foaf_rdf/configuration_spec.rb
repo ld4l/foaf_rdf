@@ -81,6 +81,52 @@ describe 'LD4L::FoafRDF' do
         expect(LD4L::FoafRDF.configuration.base_uri).to eq "http://localhost/"
       end
     end
+
+    describe "localname_minter" do
+      context "when minter is nil" do
+        before do
+          class DummyPerson < LD4L::FoafRDF::Person
+            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+          end
+        end
+        after do
+          Object.send(:remove_const, "DummyPerson") if Object
+        end
+        it "should use default minter in minter gem" do
+          localname = ActiveTriples::LocalName::Minter.generate_local_name(
+                  LD4L::FoafRDF::Person, 10, {:prefix=>'default_'},
+                  LD4L::FoafRDF.configuration.localname_minter )
+          expect(localname).to be_kind_of String
+          expect(localname.size).to eq 44
+          expect(localname).to match /default_[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}/
+        end
+      end
+
+      context "when minter is configured" do
+        before do
+          LD4L::FoafRDF.configure do |config|
+            config.localname_minter = lambda { |prefix=""| prefix+'_configured_'+SecureRandom.uuid }
+          end
+          class DummyPerson < LD4L::FoafRDF::Person
+            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+          end
+        end
+        after do
+          Object.send(:remove_const, "DummyPerson") if Object
+          LD4L::FoafRDF.reset
+        end
+
+        it "should generate an Person URI using the configured localname_minter" do
+          localname = ActiveTriples::LocalName::Minter.generate_local_name(
+              LD4L::FoafRDF::Person, 10,
+              LD4L::FoafRDF::Person.localname_prefix,
+              &LD4L::FoafRDF.configuration.localname_minter )
+          expect(localname).to be_kind_of String
+          expect(localname.size).to eq 49
+          expect(localname).to match /p_configured_[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}/
+        end
+      end
+    end
   end
 
 
@@ -102,6 +148,26 @@ describe 'LD4L::FoafRDF' do
         expect(config.base_uri).to eq "http://localhost/test/again"
         config.reset_base_uri
         expect(config.base_uri).to eq "http://localhost/"
+      end
+    end
+
+    describe "#localname_minter" do
+      it "should default to nil" do
+        expect(LD4L::FoafRDF::Configuration.new.localname_minter).to eq nil
+      end
+
+      it "should be settable" do
+        config = LD4L::FoafRDF::Configuration.new
+        config.localname_minter = lambda { |prefix=""| prefix+'_configured_'+SecureRandom.uuid }
+        expect(config.localname_minter).to be_kind_of Proc
+      end
+
+      it "should be re-settable" do
+        config = LD4L::FoafRDF::Configuration.new
+        config.localname_minter = lambda { |prefix=""| prefix+'_configured_'+SecureRandom.uuid }
+        expect(config.localname_minter).to be_kind_of Proc
+        config.reset_localname_minter
+        expect(config.localname_minter).to eq nil
       end
     end
   end

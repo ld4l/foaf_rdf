@@ -1,8 +1,8 @@
 require 'bundler/setup'
 Bundler.setup
 
-require 'active_triples'
 require 'ld4l/foaf_rdf'
+require 'pry'
 
 Dir['./spec/support/**/*.rb'].each { |f| require f }
 

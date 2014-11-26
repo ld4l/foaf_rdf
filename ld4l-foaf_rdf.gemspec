@@ -26,6 +26,9 @@ Gem::Specification.new do |spec|
 # GETTING FROM GEMFILE UNTIL MintLocalName CODE IS PUSHED INTO MASTER
 #  spec.add_dependency('active-triples', '~> 0.2')
 
+  spec.add_dependency('active_triples-local_name', '~> 0.1')
+
+  spec.add_development_dependency('pry')
   spec.add_development_dependency('rdoc')
   spec.add_development_dependency('rspec')
   spec.add_development_dependency('guard-rspec')
