@@ -27,7 +27,7 @@ module LD4L
 
 
     # RDF vocabularies
-
+    #    none - uses RDF::FOAF vocabulary
 
     # autoload classes
     autoload :Configuration,         'ld4l/foaf_rdf/configuration'

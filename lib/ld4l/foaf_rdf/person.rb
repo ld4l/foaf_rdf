@@ -1,5 +1,3 @@
-require 'rdf'
-
 module LD4L
   module FoafRDF
     class Person < ActiveTriples::Resource
