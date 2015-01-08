@@ -1,8 +1,8 @@
-require 'bundler/setup'
-Bundler.setup
-
 require 'coveralls'
 Coveralls.wear!
+
+require 'bundler/setup'
+Bundler.setup
 
 require 'ld4l/foaf_rdf'
 require 'pry'
