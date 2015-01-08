@@ -3,7 +3,7 @@
 LD4L FOAF RDF provides tools for modeling person triples based on the FOAF ontology and persisting to a triplestore.
 
 [![Build Status](https://travis-ci.org/ld4l/foaf_rdf.png?branch=master)](https://travis-ci.org/ld4l/foaf_rdf)
-[![Coverage Status](https://img.shields.io/coveralls/ld4l/foaf_rdf.svg)](https://coveralls.io/r/ld4l/foaf_rdf) 
+[![Coverage Status](https://img.shields.io/coveralls/ld4l/foaf_rdf.svg)](https://coveralls.io/r/ld4l/foaf_rdf?branch=setup_coveralls) 
 [![Gem Version](https://badge.fury.io/rb/ld4l-foaf_rdf.svg)](http://badge.fury.io/rb/ld4l-foaf_rdf)
 [![Dependency Status](https://www.versioneye.com/ruby/ld4l-foaf_rdf/0.0.4/badge.svg)](https://www.versioneye.com/ruby/ld4l-foaf_rdf/0.0.4)
    
