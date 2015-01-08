@@ -3,7 +3,7 @@
 LD4L FOAF RDF provides tools for modeling person triples based on the FOAF ontology and persisting to a triplestore.
 
 [![Build Status](https://travis-ci.org/ld4l/foaf_rdf.png?branch=master)](https://travis-ci.org/ld4l/foaf_rdf)
-[![Coverage Status](https://coveralls.io/repos/ld4l/foaf_rdf/badge.png?branch=setup_coveralls)](https://coveralls.io/r/ld4l/foaf_rdf?branch=setup_coveralls)
+[![Coverage Status](https://coveralls.io/repos/ld4l/foaf_rdf/badge.png?branch=master)](https://coveralls.io/r/ld4l/foaf_rdf?branch=master)
 [![Gem Version](https://badge.fury.io/rb/ld4l-foaf_rdf.svg)](http://badge.fury.io/rb/ld4l-foaf_rdf)
 [![Dependency Status](https://www.versioneye.com/ruby/ld4l-foaf_rdf/0.0.4/badge.svg)](https://www.versioneye.com/ruby/ld4l-foaf_rdf/0.0.4)
    
@@ -14,19 +14,16 @@ Temporary get the gem from github until the gem is released publicly.
 
 Add this line to your application's Gemfile:
 
-<!--    gem 'ld4l-foaf_rdf' -->
-    gem 'ld4l-foaf_rdf', '~> 0.0.3', :git => 'git@github.com:ld4l/foaf_rdf.git'
+    gem 'ld4l-foaf_rdf'
     
-
 And then execute:
 
     $ bundle install
 
-<!--
+
 Or install it yourself as:
 
     $ gem install ld4l-foaf_rdf
--->
 
 
 ## Usage
