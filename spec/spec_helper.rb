@@ -4,6 +4,9 @@ Bundler.setup
 require 'ld4l/foaf_rdf'
 require 'pry'
 
+require 'coveralls'
+Coveralls.wear!
+
 Dir['./spec/support/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
