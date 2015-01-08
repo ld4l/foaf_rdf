@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{LD4L FOAF RDF provides tools for modeling a person triples based on the FOAF ontology and persisting to a triplestore.}
   spec.homepage      = "https://github.com/ld4l/foaf_rdf"
   spec.license       = "APACHE2"
-  spec.required_ruby_version     = '>= 2.1.2'
+  spec.required_ruby_version     = '>= 1.9.3'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
