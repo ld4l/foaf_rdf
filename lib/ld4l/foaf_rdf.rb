@@ -32,6 +32,7 @@ module LD4L
     # autoload classes
     autoload :Configuration,         'ld4l/foaf_rdf/configuration'
     autoload :Person,                'ld4l/foaf_rdf/person'
+    autoload :Agent,                 'ld4l/foaf_rdf/agent'
 
     def self.class_from_string(class_name, container_class=Kernel)
       container_class = container_class.name if container_class.is_a? Module
