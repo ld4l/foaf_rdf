@@ -2,4 +2,4 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'active_triples-solrizer', :path => '/Users/elr37/Documents/__DEVELOPMENT__/__LD4L/at_solrizer/active_triples-solrizer'
+gem 'active_triples-solrizer', :git => 'git@github.com:ActiveTriples/active_triples-solrizer', :branch => 'modifiers_from_solrizer_gem'
