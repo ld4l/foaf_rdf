@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-describe 'LD4L::FoafRDF::Person' do
-  # it_behaves_like 'an ActiveTriple::Resource'
+describe 'LD4L::FoafRDF::Agent' do
 
-  subject { LD4L::FoafRDF::Person.new }  # new virtual collection without a subject
+  subject { LD4L::FoafRDF::Agent.new }
 
   describe 'rdf_subject' do
     it "should be a blank node if we haven't set it" do
@@ -17,7 +16,7 @@ describe 'LD4L::FoafRDF::Person' do
 
     it "should append to base URI when setting to non-URI subject" do
       subject.set_subject! '123'
-      expect(subject.rdf_subject).to eq RDF::URI("#{LD4L::FoafRDF::Person.base_uri}123")
+      expect(subject.rdf_subject).to eq RDF::URI("#{LD4L::FoafRDF::Agent.base_uri}123")
     end
 
     describe 'when changing subject' do
@@ -58,15 +57,15 @@ describe 'LD4L::FoafRDF::Person' do
   # -------------------------------------------------
 
   describe 'type' do
-    it "should be an RDF::FOAF.Person" do
-      expect(subject.type.first.value).to eq RDF::FOAF.Person.value
+    it "should be an RDF::FOAF.Agent" do
+      expect(subject.type.first.value).to eq RDF::FOAF.Agent.value
     end
   end
 
   describe '#localname_prefix' do
     it "should return default prefix" do
-      prefix = LD4L::FoafRDF::Person.localname_prefix
-      expect(prefix).to eq "p"
+      prefix = LD4L::FoafRDF::Agent.localname_prefix
+      expect(prefix).to eq "a"
     end
   end
 
@@ -105,13 +104,14 @@ describe 'LD4L::FoafRDF::Person' do
     context "when the repository is set" do
       context "and the item is not a blank node" do
 
-        subject {LD4L::FoafRDF::Person.new("123")}
+        subject {LD4L::FoafRDF::Agent.new("123")}
         let(:result) { subject.persist! }
 
         before do
           # Create inmemory repository
           @repo = RDF::Repository.new
           ActiveTriples::Repositories.repositories[:default] = @repo
+          subject.label = "An Agent"
           result
         end
 
@@ -122,6 +122,17 @@ describe 'LD4L::FoafRDF::Person' do
         it "should persist to the repository" do
           expect(@repo.statements.first).to eq subject.statements.first
         end
+
+        it "should delete from the repository" do
+          subject.reload
+          expect(subject.label.first).to eq "An Agent"
+          subject.label = []
+          expect(subject.label).to eq []
+          subject.persist!
+          subject.reload
+          expect(subject.label).to eq []
+          expect(@repo.statements.to_a.length).to eq 1 # Only the type statement
+        end
       end
     end
   end
@@ -131,7 +142,7 @@ describe 'LD4L::FoafRDF::Person' do
       subject << RDF::Statement(RDF::DC.LicenseDocument, RDF::DC.title, 'LICENSE')
     end
 
-    subject { LD4L::FoafRDF::Person.new('456')}
+    subject { LD4L::FoafRDF::Agent.new('456')}
 
     it 'should return true' do
       expect(subject.destroy!).to be true
@@ -146,7 +157,7 @@ describe 'LD4L::FoafRDF::Person' do
 
   describe '#type' do
     it 'should return the type configured on the parent class' do
-      expected_result = LD4L::FoafRDF::Person.type.kind_of?(Array) ? LD4L::FoafRDF::Person.type : [LD4L::FoafRDF::Person.type]
+      expected_result = LD4L::FoafRDF::Agent.type.kind_of?(Array) ? LD4L::FoafRDF::Agent.type : [LD4L::FoafRDF::Agent.type]
       expect(subject.type).to eq expected_result
     end
 
@@ -163,14 +174,14 @@ describe 'LD4L::FoafRDF::Person' do
   end
 
   describe '#rdf_label' do
-    subject {LD4L::FoafRDF::Person.new("123")}
+    subject {LD4L::FoafRDF::Agent.new("123")}
 
     it 'should return an array of label values' do
       expect(subject.rdf_label).to be_kind_of Array
     end
 
     it 'should return the default label as URI when no title property exists' do
-      expect(subject.rdf_label).to eq ["#{LD4L::FoafRDF::Person.base_uri}123"]
+      expect(subject.rdf_label).to eq ["#{LD4L::FoafRDF::Agent.base_uri}123"]
     end
 
     it 'should prioritize configured label values' do
@@ -196,10 +207,10 @@ describe 'LD4L::FoafRDF::Person' do
         property :creator, :predicate => RDF::DC.creator, :class_name => 'DummyPerson'
       end
 
-      LD4L::FoafRDF::Person.property :item, :predicate => RDF::DC.relation, :class_name => DummyDocument
+      LD4L::FoafRDF::Agent.property :item, :predicate => RDF::DC.relation, :class_name => DummyDocument
     end
 
-    subject { LD4L::FoafRDF::Person.new }
+    subject { LD4L::FoafRDF::Agent.new }
 
     let (:document1) do
       d = DummyDocument.new
