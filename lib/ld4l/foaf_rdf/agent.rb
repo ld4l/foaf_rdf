@@ -5,7 +5,7 @@ module LD4L
       class << self; attr_reader :localname_prefix end
       @localname_prefix="a"
 
-      configure :type => RDF::FOAF.Agent, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+      configure :type => RDF::Vocab::FOAF.Agent, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
 
       property :label,   :predicate => RDF::RDFS.label
     end

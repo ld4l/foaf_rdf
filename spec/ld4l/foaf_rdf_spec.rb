@@ -9,7 +9,7 @@ describe "LD4L::FoafRDF" do
         config.localname_minter = lambda { |prefix=""| prefix+'_configured_'+SecureRandom.uuid }
       end
       class DummyPerson < LD4L::FoafRDF::Person
-        configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+        configure :type => RDF::Vocab::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
       end
     end
     after do

@@ -7,7 +7,7 @@ describe 'LD4L::FoafRDF' do
       context "when base_uri is not configured" do
         before do
           class DummyPerson < LD4L::FoafRDF::Person
-            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+            configure :type => RDF::Vocab::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
           end
         end
         after do
@@ -24,7 +24,7 @@ describe 'LD4L::FoafRDF' do
             config.base_uri = "http://localhost/test_slash/"
           end
           class DummyPerson < LD4L::FoafRDF::Person
-            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+            configure :type => RDF::Vocab::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
           end
         end
         after do
@@ -43,7 +43,7 @@ describe 'LD4L::FoafRDF' do
             config.base_uri = "http://localhost/test_no_slash"
           end
           class DummyPerson < LD4L::FoafRDF::Person
-            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+            configure :type => RDF::Vocab::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
           end
         end
         after do
@@ -86,7 +86,7 @@ describe 'LD4L::FoafRDF' do
       context "when minter is nil" do
         before do
           class DummyPerson < LD4L::FoafRDF::Person
-            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+            configure :type => RDF::Vocab::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
           end
         end
         after do
@@ -108,7 +108,7 @@ describe 'LD4L::FoafRDF' do
             config.localname_minter = lambda { |prefix=""| prefix+'_configured_'+SecureRandom.uuid }
           end
           class DummyPerson < LD4L::FoafRDF::Person
-            configure :type => RDF::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
+            configure :type => RDF::Vocab::FOAF.Person, :base_uri => LD4L::FoafRDF.configuration.base_uri, :repository => :default
           end
         end
         after do

@@ -22,22 +22,22 @@ describe 'LD4L::FoafRDF::Person' do
 
     describe 'when changing subject' do
       before do
-        subject << RDF::Statement.new(subject.rdf_subject, RDF::DC.title, RDF::Literal('Comet in Moominland'))
-        subject << RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::DC.isPartOf, subject.rdf_subject)
-        subject << RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::DC.relation, 'http://example.org/moomin_land')
+        subject << RDF::Statement.new(subject.rdf_subject, RDF::Vocab::DC.title, RDF::Literal('Comet in Moominland'))
+        subject << RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::Vocab::DC.isPartOf, subject.rdf_subject)
+        subject << RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::Vocab::DC.relation, 'http://example.org/moomin_land')
         subject.set_subject! RDF::URI('http://example.org/moomin')
       end
 
       it 'should update graph subjects' do
-        expect(subject.has_statement?(RDF::Statement.new(subject.rdf_subject, RDF::DC.title, RDF::Literal('Comet in Moominland')))).to be true
+        expect(subject.has_statement?(RDF::Statement.new(subject.rdf_subject, RDF::Vocab::DC.title, RDF::Literal('Comet in Moominland')))).to be true
       end
 
       it 'should update graph objects' do
-        expect(subject.has_statement?(RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::DC.isPartOf, subject.rdf_subject))).to be true
+        expect(subject.has_statement?(RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::Vocab::DC.isPartOf, subject.rdf_subject))).to be true
       end
 
       it 'should leave other uris alone' do
-        expect(subject.has_statement?(RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::DC.relation, 'http://example.org/moomin_land'))).to be true
+        expect(subject.has_statement?(RDF::Statement.new(RDF::URI('http://example.org/moomin_comics'), RDF::Vocab::DC.relation, 'http://example.org/moomin_land'))).to be true
       end
     end
 
@@ -58,8 +58,8 @@ describe 'LD4L::FoafRDF::Person' do
   # -------------------------------------------------
 
   describe 'type' do
-    it "should be an RDF::FOAF.Person" do
-      expect(subject.type.first.value).to eq RDF::FOAF.Person.value
+    it "should be an RDF::Vocab::FOAF.Person" do
+      expect(subject.type.first.value).to eq RDF::Vocab::FOAF.Person.value
     end
   end
 
@@ -128,7 +128,7 @@ describe 'LD4L::FoafRDF::Person' do
 
   describe '#destroy!' do
     before do
-      subject << RDF::Statement(RDF::DC.LicenseDocument, RDF::DC.title, 'LICENSE')
+      subject << RDF::Statement(RDF::Vocab::DC.LicenseDocument, RDF::Vocab::DC.title, 'LICENSE')
     end
 
     subject { LD4L::FoafRDF::Person.new('456')}
@@ -185,18 +185,18 @@ describe 'LD4L::FoafRDF::Person' do
     before do
       class DummyPerson < ActiveTriples::Resource
         configure :type => RDF::URI('http://example.org/Person')
-        property :foafname, :predicate => RDF::FOAF.name
-        property :publications, :predicate => RDF::FOAF.publications, :class_name => 'DummyDocument'
-        property :knows, :predicate => RDF::FOAF.knows, :class_name => DummyPerson
+        property :foafname, :predicate => RDF::Vocab::FOAF.name
+        property :publications, :predicate => RDF::Vocab::FOAF.publications, :class_name => 'DummyDocument'
+        property :knows, :predicate => RDF::Vocab::FOAF.knows, :class_name => DummyPerson
       end
 
       class DummyDocument < ActiveTriples::Resource
         configure :type => RDF::URI('http://example.org/Document')
-        property :title, :predicate => RDF::DC.title
-        property :creator, :predicate => RDF::DC.creator, :class_name => 'DummyPerson'
+        property :title, :predicate => RDF::Vocab::DC.title
+        property :creator, :predicate => RDF::Vocab::DC.creator, :class_name => 'DummyPerson'
       end
 
-      LD4L::FoafRDF::Person.property :item, :predicate => RDF::DC.relation, :class_name => DummyDocument
+      LD4L::FoafRDF::Person.property :item, :predicate => RDF::Vocab::DC.relation, :class_name => DummyDocument
     end
 
     subject { LD4L::FoafRDF::Person.new }
@@ -249,8 +249,10 @@ END
       document1.creator = [person1, person2]
       document2.creator = person1
       person1.knows = person2
+      person2.knows = person1
       subject.item = [document1]
-      expect(subject.item.first.creator.first.knows.first.foafname).to eq ['Bob']
+      expect(subject.item.first.creator.first.knows.first.foafname)
+          .to satisfy { |names| ['Alice', 'Bob'].include? names.first }
     end
   end
 end
