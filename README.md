@@ -25,6 +25,10 @@ Or install it yourself as:
 
     $ gem install ld4l-foaf_rdf
 
+## Primary Dependencies
+
+* [ActiveTriples 0.10.0](https://github.com/ActiveTriples/ActiveTriples/tree/v0.10.0)
+* [RDF 2.0.2](https://github.com/ruby-rdf/rdf/tree/2.0.2)
 
 ## Usage
 
